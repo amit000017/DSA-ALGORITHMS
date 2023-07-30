@@ -5,24 +5,23 @@ graph={
     '2':[],
     '4':['8'],
     '8':[]
-    
 }
 
 visted=[]
-stack=[]
+queue=[]
 
-def dfsTraversal(graph,visted,node):
-    stack.append(node)
+def bsf(visted,graph,node):
+ visted.append(node)
+ queue.append(node)
+
+ while queue:
+    m=queue.pop(0)
+    print(m,end=" ")
     
-    while stack:
-        m=stack.pop(0)
-        if m not in visted:
-            visted.append(node)
-            print(m,end=" ")
+    for neighbour in graph[m]:
+        if neighbour not in visted:
+            visted.append(neighbour)
+            queue.append(neighbour)
             
-            for neighbour in graph[m]:
-                if neighbour not in visted:
-                    stack.append(neighbour)
-                    
-print("the following dfs are:")                    
-dfsTraversal(graph,visted,'5')
+print("The following breadth first search")
+bsf(visted,graph,'5')
