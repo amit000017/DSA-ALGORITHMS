@@ -1,0 +1,32 @@
+from collections import deque
+
+def water_jug_problem(jug1,jug2,target):
+    q,visted=deque([(0,0,[])]),set()
+    
+    while q:
+        x,y,path=q.popleft()
+        
+        if x==target or y==target:
+            return path
+        visted.add((x,y))
+        
+        for(nx,ny,action) in [(x,0,'Clear y'),(0,y,'Clear x'),
+        (x,jug2,'Fill y'),(jug1,y,'Fill x'),
+        (x-min(x,jug2-y),y+min(x,jug2-y),'Pour x->y'),
+        (x+min(y,jug1-x),y-min(y,jug1-x),'pour y->x')]:
+            if (nx,ny) not in visted:
+                q.append((nx,ny,path+[action]))
+        
+    return None   
+
+
+jug1_capacity=int(input("Enter the value of jug1 capacity:"))
+jug2_capacity=int(input("Enter the value of jug2 capacity:"))
+target_amount=int(input("Enter the value of target amount to measure:"))
+
+result=water_jug_problem(jug1_capacity,jug2_capacity,target_amount)
+
+if result:
+    print(f"steps to measure{target_amount}liters{result}")
+else:
+    print(f"cannot measure{target_amount}liters in the given jug capacity")
