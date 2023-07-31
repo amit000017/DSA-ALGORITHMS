@@ -1,0 +1,81 @@
+#include<iostream>
+#include<conio.h>
+using namespace std;
+class msort
+{
+    public:
+        int a[10000],n,num=0;
+    void split(int a[],int low,int high)
+    {
+        int mid;
+        if(low<high)
+        {
+            mid=(low+high)/2;
+            split(a,low,mid);
+            split(a,mid+1,high);
+            combine(a,low,mid,high);
+        }
+    }
+    void combine(int a[],int low, int mid, int high)
+    {
+       int c[15000],i,j,k;
+    i=k=low;
+    j=mid+1;
+    while(i<=mid&&j<=high)
+    {
+        num++;
+    if(a[i]<a[j])
+    {
+      c[k]=a[i];
+        ++k;
+        ++i;
+    }
+    else
+    {
+        c[k]=a[j];
+        ++k;
+        ++j;
+    }
+    }
+    if(i>mid)
+    {
+    while(j<=high)
+    {
+        c[k]=a[j];
+        ++k;
+        ++j;
+    }
+    }
+    if(j>high)
+    {
+    while(i<=mid)
+    {
+        c[k]=a[i];
+        ++k;
+        ++i;
+    }
+    }
+    for(i=low;i<=high;i++)
+    {
+        a[i]=c[i];
+    }
+}
+
+}t;
+int main()
+{
+    cout<<"enter the size of array";
+    cin>>t.n;
+    cout<<"enter the array elements";
+    for(int i=0;i<t.n;i++)
+    {
+       t.a[i]=rand()%10000;
+    }
+    t.split(t.a,0,t.n-1);
+    cout<<"the no of basic op is"<<t.num<<"\n";
+    cout<<"the sorted array";
+    for(int i=0;i<t.n;i++)
+    {
+        cout<<t.a[i]<<"\t";
+    }
+}
