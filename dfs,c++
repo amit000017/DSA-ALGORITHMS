@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+int a[10][10], n;
+
+void dfs(int);
+int main()
+{
+    int i, j, src;
+
+    cout << "\nEnter the number of nodes: ";
+    cin >> n;
+    cout << "\nEnter the adjacency matrix:\n";
+    for (i = 1; i <= n; i++)
+    {
+        for (j = 1; j <= n; j++)
+        {
+            cin >> a[i][j];
+        }
+    }
+    cout << "\nEnter the source node: ";
+    cin >> src;
+    dfs(src);
+    return 0;
+}
+
+void dfs(int src)
+{
+    int s[10], top = -1, vis[10], i, j;
+    for (j = 1; j <= n; j++)
+    {
+        vis[j] = 0;
+    }
+    top++;
+    s[top] = src;
+    while (top >= 0)
+    {
+        i = s[top];
+        top--;
+        if (!vis[i])
+        {
+            cout << "\nNode " << i << " is reachable" << endl;
+            vis[i] = 1;
+        }
+        for (j = 1; j <= n; j++)
+        {
+            if (a[i][j] == 1 && !vis[j])
+            {
+                top++;
+                s[top] = j;
+            }
+        }
+    }
+    for (j = 1; j <= n; j++)
+    {
+        if (!vis[j])
+        {
+            cout << "\nNode " << j << " is not reachable" << endl;
+        }
+    }
+}
